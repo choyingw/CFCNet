@@ -36,10 +36,10 @@ For evalutation, please run
 This will load the latest checkpoint to evaluate. Add `--epoch` to specify which epoch checkpoint you want to load.
 
 If you find our work useful, please consider to cite our work.
-`
-@article{zhong2019deep,
-  title={Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion},
-  author={Zhong, Yiqi and Wu, Cho-Ying and You, Suya and Neumann, Ulrich},
-  journal={arXiv preprint arXiv:1906.08967},
-  year={2019}
-}`
+
+	@article{zhong2019deep,
+	  title={Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion},
+	  author={Zhong, Yiqi and Wu, Cho-Ying and You, Suya and Neumann, Ulrich},
+	  journal={arXiv preprint arXiv:1906.08967},
+	  year={2019}
+	}
