@@ -1,5 +1,5 @@
 # Deep RGB-D Canonical Correlation Analysis ForSparse Depth Completion
-This is the code for our NeurIPS 2019 paper. [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>]
+This is the PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>]
 
 <img src='images/500.gif'>
 
