@@ -3,6 +3,8 @@ This is the code for our NeurIPS 2019 paper. [<a href="https://arxiv.org/abs/190
 
 <img src='images/500.gif'>
 
+Watch the whole video [<a href="https://www.youtube.com/watch?v=6HCWipHkv60">Youtube</a>]
+
 # Prerequisites
 	Linux
 	Python 3
