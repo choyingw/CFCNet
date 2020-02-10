@@ -72,7 +72,7 @@ def init_net(net, init_type='normal', init_gain=0.02, gpu_ids=[]):
 				init_weights(children, init_type, gain=init_gain)
 	return net
 
-def define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm='batch', use_dropout=True, init_type='xavier', init_gain=0.02, gpu_ids=[]):
+def define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm='batch', init_type='xavier', init_gain=0.02, gpu_ids=[]):
 	net = None
 	norm_layer = get_norm_layer(norm_type=norm)
 	net = DCCASparsenetGenerator(rgb_enc=rgb_enc, depth_enc=depth_enc, depth_dec=depth_dec)
@@ -184,7 +184,7 @@ def make_blocks_from_names(names,in_dim,out_dim):
 class DCCASparsenetGenerator(nn.Module):
 	def __init__(self, rgb_enc=True, depth_enc=True, depth_dec=True):
 		super(DCCASparsenetGenerator, self).__init__()
-		batchNorm_momentum = 0.1
+		#batchNorm_momentum = 0.1
 		self.need_initialization = []
 
 		if rgb_enc :

@@ -7,48 +7,44 @@
 
 import time
 from options.options import AdvanceOptions
-#from data import CreateDataLoader
 from models import create_model
 from util.visualizer import Visualizer
-# from util.visualize_mask import *
-#from util.util import confusion_matrix, getScores
 from dataloaders.nyu_dataloader import NYUDataset
 from dataloaders.kitti_dataloader import KITTIDataset
-#from dataloaders.city_dataloader import CITY_SCAPESDataset
 from dataloaders.dense_to_sparse import UniformSampling, SimulatedStereo
 import numpy as np
 import random
 import torch
 import cv2
 import utils
+import os
 
-def colored_depthmap(depth, d_min=None, d_max=None):
-   if d_min is None:
-	   d_min = np.min(depth)
-   if d_max is None:
-	   d_max = np.max(depth)
-   depth_relative = (depth - d_min) / (d_max - d_min)
-   return 255 * plt.cm.viridis(depth_relative)[:,:,:3] # H, W, C
+# def colored_depthmap(depth, d_min=None, d_max=None):
+#    if d_min is None:
+# 	   d_min = np.min(depth)
+#    if d_max is None:
+# 	   d_max = np.max(depth)
+#    depth_relative = (depth - d_min) / (d_max - d_min)
+#    return 255 * plt.cm.viridis(depth_relative)[:,:,:3] # H, W, C
 
-def merge_into_row_with_pred_visualize(input, depth_input, rgb_sparse,depth_target, depth_est):
-   rgb = 255 * np.transpose(np.squeeze(input.cpu().numpy()), (1,2,0)) # H, W, C
-   rgb_sparse = 255 * np.transpose(np.squeeze(rgb_sparse.cpu().numpy()), (1,2,0))
-   depth_input_cpu = np.squeeze(depth_input.cpu().numpy())
-   depth_target_cpu = np.squeeze(depth_target.cpu().numpy())
-   depth_pred_cpu = np.squeeze(depth_est.cpu().numpy())
+# def merge_into_row_with_pred_visualize(input, depth_input, rgb_sparse,depth_target, depth_est):
+#    rgb = 255 * np.transpose(np.squeeze(input.cpu().numpy()), (1,2,0)) # H, W, C
+#    rgb_sparse = 255 * np.transpose(np.squeeze(rgb_sparse.cpu().numpy()), (1,2,0))
+#    depth_input_cpu = np.squeeze(depth_input.cpu().numpy())
+#    depth_target_cpu = np.squeeze(depth_target.cpu().numpy())
+#    depth_pred_cpu = np.squeeze(depth_est.cpu().numpy())
 
-   d_min = min(np.min(depth_input_cpu), np.min(depth_target_cpu), np.min(depth_pred_cpu))
-   d_max = max(np.max(depth_input_cpu), np.max(depth_target_cpu), np.min(depth_pred_cpu))
-   depth_input_col = colored_depthmap(depth_input_cpu, d_min, d_max)
-   depth_target_col = colored_depthmap(depth_target_cpu, d_min, d_max)
-   depth_pred_col = colored_depthmap(depth_target_cpu, d_min, d_max)
+#    d_min = min(np.min(depth_input_cpu), np.min(depth_target_cpu), np.min(depth_pred_cpu))
+#    d_max = max(np.max(depth_input_cpu), np.max(depth_target_cpu), np.min(depth_pred_cpu))
+#    depth_input_col = colored_depthmap(depth_input_cpu, d_min, d_max)
+#    depth_target_col = colored_depthmap(depth_target_cpu, d_min, d_max)
+#    depth_pred_col = colored_depthmap(depth_target_cpu, d_min, d_max)
 
-   img_merge = np.hstack([rgb, rgb_sparse,depth_input_col, depth_target_col,depth_pred_col])
+#    img_merge = np.hstack([rgb, rgb_sparse,depth_input_col, depth_target_col,depth_pred_col])
 
-   return img_merge
+#    return img_merge
 
 if __name__ == '__main__':
-	#train_opt = AdvanceOptions().parse()
 	test_opt = AdvanceOptions().parse(False)
 
 	sparsifier = UniformSampling(test_opt.nP, max_depth=np.inf)
@@ -61,16 +57,10 @@ if __name__ == '__main__':
 	test_opt.num_threads = 1
 	test_opt.serial_batches = True
 	test_opt.no_flip = True
-	test_opt.display_id = -1
 
 	test_data_loader = torch.utils.data.DataLoader(test_dataset,
-		batch_size=1, shuffle=False, num_workers=test_opt.num_threads, pin_memory=True)
+		batch_size=test_opt.batch_size, shuffle=False, num_workers=test_opt.num_threads, pin_memory=True)
 
-	#train_dataset_size = len(train_data_loader)
-	#print('#training images = %d' % train_dataset_size)
-
-	#test_data_loader = CreateDataLoader(test_opt)
-	#test_dataset = test_data_loader.load_data()
 	test_dataset_size = len(test_data_loader)
 	print('#test images = %d' % test_dataset_size)
 
@@ -84,7 +74,9 @@ if __name__ == '__main__':
 	epoch_iter = 0
 	model.init_test_eval()
 	epoch = 0
-	num = 5 # How many images to output in a frame
+	num = 5 # How many images to save in an image
+	if not os.path.exists('vis'):
+		os.makedirs('vis')
 	with torch.no_grad():
 		iterator = iter(test_data_loader)
 		i = 0
@@ -111,8 +103,8 @@ if __name__ == '__main__':
 			rgb_sparse = model.sparse_rgb
 			depth_target = model.depth_image
 			depth_est = model.depth_est
-			skip = 5
 
+			### These part save image in vis/ folder
 			if i%num == 0:
 				img_merge = utils.merge_into_row_with_pred_visualize(rgb_input, depth_input, rgb_sparse,depth_target, depth_est)
 			elif i%num < num-1:

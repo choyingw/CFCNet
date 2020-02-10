@@ -35,7 +35,7 @@ def Enlarge_pixel(sparse_depth):
 
     return sparse_depth
 
-def merge_into_row_with_pred_visualize(input, depth_input, rgb_sparse,depth_target,depth_est):
+def merge_into_row_with_pred_visualize(input, depth_input, rgb_sparse, depth_target, depth_est):
     rgb = 255 * np.transpose(np.squeeze(input.cpu().numpy()), (1,2,0)) # H, W, C
     rgb_sparse = 255 * np.transpose(np.squeeze(rgb_sparse.cpu().numpy()), (1,2,0))
     depth_input_cpu = np.squeeze(depth_input.cpu().numpy())

@@ -39,10 +39,9 @@ if __name__ == '__main__':
 	test_opt.num_threads = 1
 	test_opt.serial_batches = True
 	test_opt.no_flip = True
-	test_opt.display_id = -1
 
 	test_data_loader = torch.utils.data.DataLoader(test_dataset,
-        batch_size=1, shuffle=False, num_workers=test_opt.num_threads, pin_memory=True)
+        batch_size=test_opt.batch_size, shuffle=False, num_workers=test_opt.num_threads, pin_memory=True)
 
 	train_dataset_size = len(train_data_loader)
 	print('#training images = %d' % train_dataset_size)
@@ -82,10 +81,7 @@ if __name__ == '__main__':
 				losses = model.get_current_losses()
 				t = (time.time() - iter_start_time) / train_opt.batch_size
 				visualizer.print_current_losses(epoch, epoch_iter, losses, t, t_data)
-				if train_opt.display_id > 0:
-					visualizer.plot_current_losses(epoch,
-                                                float(epoch_iter) / train_dataset_size, train_opt, losses)
-				message = model.Visualize_depth_evaluation()
+				message = model.print_depth_evaluation()
 				visualizer.print_current_depth_evaluation(message)
 				print()
 
@@ -125,7 +121,7 @@ if __name__ == '__main__':
 					losses = model.get_current_losses()
 					test_loss_iter.append(model.loss_dcca.item())
 					print('test epoch {0:}, iters: {1:}/{2:} '.format(epoch, epoch_iter, len(test_dataset) * test_opt.batch_size), end='\r')
-					message = model.Visualize_depth_evaluation()
+					message = model.print_test_depth_evaluation()
 					visualizer.print_current_depth_evaluation(message)
 					print(
                   'RMSE={result.rmse:.4f}({average.rmse:.4f}) '

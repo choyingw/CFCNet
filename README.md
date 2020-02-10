@@ -27,23 +27,36 @@ For training, please run
 
 If you use the preprocessed data from <a href="https://github.com/fangchangma/sparse-to-dense.pytorch">here</a>. The train/test data path should be ./kitti/train or ./kitti/val/ under your data directory.
 
-Other specifications: `--continue_train` would load the lastest saved ckpt. Set hyperparameters by `--lr`, `--batch_size`, `--weight_decay`, or others. Please refer to the options/base_options.py and options/options.py
+If you want to use your data, please make your data into h5 dataset. (See dataloaders/dataloader.py) 
+
+Other specifications: `--continue_train` would load the lastest saved ckpt. Also set --epoch_count to tell what's the next epoch_number. Otherwise, will start from epoch 0. Set hyperparameters by `--lr`, `--batch_size`, `--weight_decay`, or others. Please refer to the options/base_options.py and options/options.py
 
 Example command:
 
-	python3 train_depth_complete.py --name kitti --checkpoints_dir ./checkpoints --lr 0.001 --batch_size 4 --train_path './kitti/train/' --test_path './kitti/val/' --continue_train
+	python3 train_depth_complete.py --name kitti --checkpoints_dir ./checkpoints --lr 0.001 --batch_size 4 --train_path './kitti/train/' --test_path './kitti/val/' --continue_train --epoch_count [next_epoch_number]
 	
 For evalutation, please run
 
-	python3 evaluate.py --name kitti --checkpoints_dir [path to save_dir to load ckpt] --test_path [test_data_dir] [--epoch [epoch number]]
+	python3 evaluate.py --name kitti --checkpoints_dir [path to save_dir to load ckpt] --train_path [test_data_dir] --test_path [test_data_dir] [--epoch [epoch number]]
 
 This will load the latest checkpoint to evaluate. Add `--epoch` to specify which epoch checkpoint you want to load.
 
+# Update: 02/10/2020
+
+Fix several bugs and take off redundant options.
+Release Orb sparsifier
+Pretrain models release
+[<a href="https://drive.google.com/file/d/1rFvrqQ1Qf5bT_WSmtZZP5c-FKAhRHKUn/view?usp=sharing"> NYU-Depth 500 points training</a>]
+[<a href="https://drive.google.com/open?id=1RJZMnohlp9OVSkxkSUWm7psnbW2mRunH"> Kitti 500 points training</a>]
+
+
 If you find our work useful, please consider to cite our work.
 
-	@article{zhong2019deep,
-	  title={Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion},
+	@inproceedings{zhong2019deep,
+	  title={Deep rgb-d canonical correlation analysis for sparse depth completion},
 	  author={Zhong, Yiqi and Wu, Cho-Ying and You, Suya and Neumann, Ulrich},
-	  journal={arXiv preprint arXiv:1906.08967},
+	  booktitle={Advances in Neural Information Processing Systems},
+	  pages={5332--5342},
 	  year={2019}
-	}
+}
+

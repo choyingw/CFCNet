@@ -41,7 +41,7 @@ class DCCASparseModel(BaseModel):
 		self.model_names = ['DCCASparseNet']
 
 		# load/define networks
-		self.netDCCASparseNet = DCCA_sparse_networks.define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm=opt.norm,use_dropout= not opt.no_dropout, init_type=opt.init_type,	init_gain= opt.init_gain, gpu_ids= self.gpu_ids)
+		self.netDCCASparseNet = DCCA_sparse_networks.define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm=opt.norm, init_type=opt.init_type,	init_gain= opt.init_gain, gpu_ids= self.gpu_ids)
         # define loss functions
 		self.criterionDCCA = DCCA_sparse_networks.DCCA_2D_Loss(outdim_size = 60,use_all_singular_values = True, device=self.device).to(self.device)
 		self.MSE = DCCA_sparse_networks.MaskedMSELoss()
@@ -69,7 +69,7 @@ class DCCASparseModel(BaseModel):
 
 	def forward(self):
 		self.x_dataview,self.y_dataview,self.x_trans,self.depth_est= self.netDCCASparseNet(self.sparse_rgb,self.sparse_depth,self.mask,self.rgb_image,self.depth_image)
-	
+		
 	def get_loss(self):
 		self.loss_dcca = self.criterionDCCA(self.x_dataview,self.y_dataview)
 		self.loss_mse = self.MSE(self.depth_est,self.depth_image)
@@ -98,8 +98,18 @@ class DCCASparseModel(BaseModel):
 	def test_depth_evaluation(self):
 		self.test_result.evaluate(self.depth_est.data, self.depth_image.data)
 		self.test_average.update(self.test_result, self.sparse_rgb.size(0))
+		print()
 
-	def Visualize_depth_evaluation(self):
+	def print_test_depth_evaluation(self):
+		message = 'RMSE={result.rmse:.4f}({average.rmse:.4f}) \
+MAE={result.mae:.4f}({average.mae:.4f}) \
+Delta1={result.delta1:.4f}({average.delta1:.4f}) \
+REL={result.absrel:.4f}({average.absrel:.4f}) \
+Lg10={result.lg10:.4f}({average.lg10:.4f})'.format(result=self.test_result, average=self.test_average.average())
+		print(message)
+		return message
+
+	def print_depth_evaluation(self):
 		message = 'RMSE={result.rmse:.4f}({average.rmse:.4f}) \
 MAE={result.mae:.4f}({average.mae:.4f}) \
 Delta1={result.delta1:.4f}({average.delta1:.4f}) \
