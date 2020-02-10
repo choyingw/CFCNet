@@ -43,10 +43,14 @@ This will load the latest checkpoint to evaluate. Add `--epoch` to specify which
 
 # Update: 02/10/2020
 
-Fix several bugs and take off redundant options.
-Release Orb sparsifier
-Pretrain models release
+1.Fix several bugs and take off redundant options.
+
+2.Release Orb sparsifier
+
+3.Pretrain models release:
+
 [<a href="https://drive.google.com/file/d/1rFvrqQ1Qf5bT_WSmtZZP5c-FKAhRHKUn/view?usp=sharing"> NYU-Depth 500 points training</a>]
+
 [<a href="https://drive.google.com/open?id=1RJZMnohlp9OVSkxkSUWm7psnbW2mRunH"> Kitti 500 points training</a>]
 
 
@@ -58,5 +62,5 @@ If you find our work useful, please consider to cite our work.
 	  booktitle={Advances in Neural Information Processing Systems},
 	  pages={5332--5342},
 	  year={2019}
-}
+
 
