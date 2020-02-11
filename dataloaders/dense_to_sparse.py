@@ -89,3 +89,34 @@ class SimulatedStereo(DenseToSparse):
         return mask
 
 
+class ORBSampling(DenseToSparse):
+    name = "ORB"
+    def __init__(self,max_depth=np.inf):
+        DenseToSparse.__init__(self)
+        self.max_depth = max_depth
+
+    def __repr__(self):
+        return "%s{ns=%d,md=%f}" % (self.name, self.max_depth)
+
+    def dense_to_sparse(self, rgb, depth):
+        """
+        Samples pixels with `num_samples`/#pixels probability in `depth`.
+        Only pixels with a maximum depth of `max_depth` are considered.
+        If no `max_depth` is given, samples in all pixels
+        """
+        mask_keep = depth > 0
+
+        orb = cv2.ORB_create()
+        rgb_ori = (rgb.copy()*255).astype(np.uint8)
+        kp = orb.detect(rgb_ori,None)
+
+        mask_keep_orb = np.zeros(mask_keep.shape).astype(mask_keep.dtype)
+        for marker in kp:
+            position = np.asarray(marker.pt).astype(np.uint8)
+            mask_keep_orb[position[1]][position[0]] = True
+        if self.max_depth is not np.inf:
+            mask_keep = np.bitwise_and(mask_keep, depth <= self.max_depth)
+        
+        mask_keep = np.bitwise_and(mask_keep, mask_keep_orb)
+        n_keep = np.count_nonzero(mask_keep)
+        return mask_keep
