@@ -29,6 +29,14 @@ if __name__ == '__main__':
                 modality='rgbdm', sparsifier=sparsifier)
 	test_dataset = KITTIDataset(train_opt.test_path, type='val',
             modality='rgbdm', sparsifier=sparsifier)
+	## Please use this dataloder if you want to use NYU
+	# train_dataset = NYUDataset(train_opt.train_path, type='train',
+ #                modality='rgbdm', sparsifier=sparsifier)
+	## Please use this dataloder if you want to use NYU
+	# test_dataset = NYUDataset(train_opt.test_path, type='val',
+ #            modality='rgbdm', sparsifier=sparsifier)
+
+
 	train_data_loader = torch.utils.data.DataLoader(
             train_dataset, batch_size=train_opt.batch_size, shuffle=True,
             num_workers=train_opt.num_threads, pin_memory=True, sampler=None,

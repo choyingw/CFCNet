@@ -52,6 +52,11 @@ if __name__ == '__main__':
 	test_dataset = KITTIDataset(test_opt.test_path, type='val',
 			modality='rgbdm', sparsifier=sparsifier)
 
+	### Please use this dataloder if you want to use NYU
+	# test_dataset = NYUDataset(test_opt.test_path, type='val',
+	# 		modality='rgbdm', sparsifier=sparsifier)
+
+
 	test_opt.phase = 'val'
 	test_opt.batch_size = 1
 	test_opt.num_threads = 1

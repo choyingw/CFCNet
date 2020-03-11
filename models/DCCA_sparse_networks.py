@@ -231,6 +231,7 @@ class DCCASparsenetGenerator(nn.Module):
 			self.Transform = make_blocks_from_names(["block1"],512, 512)
 			self.decoder = DeConv(1024, 3)
 			self.conv3 = nn.Conv2d(64,1,kernel_size=3,stride=1,padding=1,bias=False)
+			## This size is for KITTI, use (224,224) for NYU
 			self.bilinear = nn.Upsample((228,912), mode='bilinear', align_corners=True)
 
 		self.need_initialization.append(self.decoder)

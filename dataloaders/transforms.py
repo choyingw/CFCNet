@@ -17,6 +17,7 @@ import warnings
 
 import scipy.ndimage.interpolation as itpl
 import scipy.misc as misc
+import skimage.transform
 
 
 def _is_numpy_image(img):
@@ -334,9 +335,9 @@ class Resize(object):
             PIL Image: Rescaled image.
         """
         if img.ndim == 3:
-            return misc.imresize(img, self.size, self.interpolation)
+            return skimage.transform.rescale(img, self.size, order=0)
         elif img.ndim == 2:
-            return misc.imresize(img, self.size, self.interpolation, 'F')
+            return skimage.transform.rescale(img, self.size, order=0)
         else:
             RuntimeError('img should be ndarray with 2 or 3 dimensions. Got {}'.format(img.ndim))
 
