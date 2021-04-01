@@ -37,7 +37,7 @@ Example command:
 	
 For evalutation, please run
 
-	python3 evaluate.py --name kitti --checkpoints_dir [path to save_dir to load ckpt] --train_path [test_data_dir] --test_path [test_data_dir] [--epoch [epoch number]]
+	python3 evaluate.py --name kitti --checkpoints_dir [path to save_dir to load ckpt] --test_path [test_data_dir] [--epoch [epoch number]]
 
 This will load the latest checkpoint to evaluate. Add `--epoch` to specify which epoch checkpoint you want to load.
 
