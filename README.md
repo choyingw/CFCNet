@@ -1,9 +1,11 @@
 # Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion
-This is the PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>].
+This is the PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC 
+
+Paper: [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>].
 
 <img src='images/500.gif'>
 
-Check out the whole video [<a href="https://www.youtube.com/watch?v=6HCWipHkv60">Youtube</a>].
+Check out the whole video demo [<a href="https://www.youtube.com/watch?v=6HCWipHkv60">Youtube</a>].
 
 # Prerequisites
 	Linux
