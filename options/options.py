@@ -18,7 +18,7 @@ class AdvanceOptions(BaseOptions):
         parser.add_argument('--lr_decay_epochs', type=int, default=100, help='multiply by a gamma every lr_decay_epoch epochs')
         parser.add_argument('--lr_gamma', type=float, default=0.9, help='gamma factor for lr_scheduler')
         parser.add_argument('--nP', type=int, default=500, help='number of points')
-        parser.add_argument('--train_path', required=True, help='path to the training dataset')
-        parser.add_argument('--test_path', required=True, help='path to the testing dataset')
+        parser.add_argument('--train_path', help='path to the training dataset')
+        parser.add_argument('--test_path', help='path to the testing dataset')
         self.isTrain = flag
         return parser
