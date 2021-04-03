@@ -1,11 +1,13 @@
 # Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion
-This is the PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC 
+This is the official PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC 
 
 Paper: [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>].
 
 <img src='images/500.gif'>
 
 Check out the whole video demo [<a href="https://www.youtube.com/watch?v=6HCWipHkv60">Youtube</a>].
+
+Also check our newest work on depth estimation/completion using snesor fusion <a href="https://github.com/choyingw/SCADC-DepthCompletion">SCADC</a>.
 
 # Prerequisites
 	Linux
