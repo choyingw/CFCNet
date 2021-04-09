@@ -7,7 +7,7 @@ Paper: [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>].
 
 Check out the whole video demo [<a href="https://www.youtube.com/watch?v=6HCWipHkv60">Youtube</a>].
 
-**Also check our newest work on depth estimation/completion using snesor fusion <a href="https://github.com/choyingw/SCADC-DepthCompletion">SCADC</a>!**
+**Also check our newest work on depth estimation/completion using sensor fusion <a href="https://github.com/choyingw/SCADC-DepthCompletion">SCADC</a>!**
 
 # Prerequisites
 	Linux
