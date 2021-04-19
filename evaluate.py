@@ -80,15 +80,15 @@ if __name__ == '__main__':
 		iterator = iter(test_data_loader)
 		i = 0
 		while True:
-			try:
-				nn = next(iterator)
+			try:  # Some images couldn't sample more than defined nP points under Stereo sampling
+				next_batch = next(iterator)
 			except IndexError:
 				print("Catch and Skip!")
 				continue
 			except StopIteration:
 				break
 
-			data, target = nn[0], nn[1]
+			data, target = next_batch[0], next_batch[1]
 			model.set_new_input(data,target)
 			model.forward()
 			model.test_depth_evaluation()
