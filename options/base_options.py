@@ -11,7 +11,7 @@ class BaseOptions():
         self.initialized = False
 
     def initialize(self, parser):
-        parser.add_argument('--batch_size', type=int, default=16, help='input batch size')
+        parser.add_argument('--batch_size', type=int, default=1, help='input batch size')
         parser.add_argument('--gpu_ids', type=str, default='0', help='gpu ids: e.g. 0  0,1,2, 0,2. use -1 for CPU')
         parser.add_argument('--name', type=str, default='experiment_name', help='name of the experiment. It decides where to store samples and models')
         parser.add_argument('--model', type=str, default='DCCA_sparse',

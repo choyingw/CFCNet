@@ -1,16 +1,8 @@
 #!/usr/bin/env python
-#SBATCH --job-name=CFCNet
-#SBATCH --nodes=1
-#SBATCH --cpus=4
-#SBATCH --gres=gpu:1
-#SBATCH --time="UNLIMITED"
-
 import time
 from options.options import AdvanceOptions
-#from data import CreateDataLoader
 from models import create_model
 from util.visualizer import Visualizer
-#from util.util import confusion_matrix, getScores
 from dataloaders.nyu_dataloader import NYUDataset
 from dataloaders.kitti_dataloader import KITTIDataset
 from dataloaders.dense_to_sparse import UniformSampling, SimulatedStereo
@@ -35,7 +27,6 @@ if __name__ == '__main__':
 	## Please use this dataloder if you want to use NYU
 	# test_dataset = NYUDataset(train_opt.test_path, type='val',
  #            modality='rgbdm', sparsifier=sparsifier)
-
 
 	train_data_loader = torch.utils.data.DataLoader(
             train_dataset, batch_size=train_opt.batch_size, shuffle=True,
@@ -68,14 +59,14 @@ if __name__ == '__main__':
 		model.init_eval()
 		iterator = iter(train_data_loader)
 		while True:
-			try:
-				nn = next(iterator)
-			except IndexError: # Some images couldn't sample more than defined nP points under Stereo sampling
+			try:  # Some images couldn't sample more than defined nP points under Stereo sampling
+				next_batch = next(iterator)
+			except IndexError:
 				print("Catch and Skip!")
 				continue
 			except StopIteration:
 				break
-			data, target = nn[0], nn[1]
+			data, target = next_batch[0], next_batch[1]
 
 			iter_start_time = time.time()
 			if total_steps % train_opt.print_freq == 0:
@@ -111,15 +102,15 @@ if __name__ == '__main__':
 			with torch.no_grad():
 				iterator = iter(test_data_loader)
 				while True:
-					try:
-						nn = next(iterator)
+					try: # Some images couldn't sample more than defined nP points under Stereo sampling
+						next_batch = next(iterator)
 					except IndexError:
 						print("Catch and Skip!")
 						continue
 					except StopIteration:
 						break
 
-					data, target = nn[0], nn[1]
+					data, target = next_batch[0], next_batch[1]
 
 					model.set_new_input(data,target)
 					model.forward()

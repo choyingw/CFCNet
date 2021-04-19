@@ -1,10 +1,4 @@
 #!/usr/bin/env python
-#SBATCH --job-name=fusenet
-#SBATCH --nodes=1
-#SBATCH --cpus=4
-#SBATCH --gres=gpu:1
-#SBATCH --time="UNLIMITED"
-
 import time
 from options.options import AdvanceOptions
 from models import create_model

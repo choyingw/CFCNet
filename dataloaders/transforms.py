@@ -510,7 +510,6 @@ class ColorJitter(object):
         """
         if not(_is_numpy_image(img)):
             raise TypeError('img should be ndarray. Got {}'.format(type(img)))
-
         pil = Image.fromarray(img)
         transform = self.get_params(self.brightness, self.contrast,
                                     self.saturation, self.hue)
