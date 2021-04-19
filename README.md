@@ -1,4 +1,4 @@
-# Deep RGB-D Canonical Correlation Analysis For Sparse Depth Completion
+# Deep RGB-D Canonical Correlation Analysis for Sparse Depth Completion
 This is the official PyTorch implemenation for our NeurIPS 2019 paper by Yiqi Zhong\*, Cho-Ying Wu\*, Suya You, Ulrich Neumann (\*Equal Contribution) at USC 
 
 Paper: [<a href="https://arxiv.org/abs/1906.08967">Arxiv</a>].
@@ -27,7 +27,7 @@ Data Preparation:
 2. Download the pretrained weights: [<a href="https://drive.google.com/file/d/1rFvrqQ1Qf5bT_WSmtZZP5c-FKAhRHKUn/view?usp=sharing">NYU-Depth 500 points training</a>] [<a href="https://drive.google.com/open?id=1RJZMnohlp9OVSkxkSUWm7psnbW2mRunH">KITTI 500 points training</a>] and put the .pth under 'checkpoint/kitti/'
 3. Prepare data in the previous "getting started" section
 4. Run "python3 evaluate.py --name kitti --checkpoints_dir ./checkpoint/ --test_path [path ot the testing file] "
-4. You'll see visualized completed depth maps are saved under 'vis/'
+4. You'll see completed depth maps are saved under 'vis/'
 
 # Train/Evaluation:
 
