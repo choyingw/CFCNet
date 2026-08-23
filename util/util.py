@@ -85,7 +85,7 @@ def getScores(conf_matrix):
         if conf_matrix.sum() == 0:
             return 0, 0, 0
         with np.errstate(divide='ignore',invalid='ignore'):
-            overall = np.diag(conf_matrix).sum() / np.float(conf_matrix.sum())
-            perclass = np.diag(conf_matrix) / conf_matrix.sum(1).astype(np.float)
-            IU = np.diag(conf_matrix) / (conf_matrix.sum(1) + conf_matrix.sum(0) - np.diag(conf_matrix)).astype(np.float)
+            overall = np.diag(conf_matrix).sum() / float(conf_matrix.sum())
+            perclass = np.diag(conf_matrix) / conf_matrix.sum(1).astype(float)
+            IU = np.diag(conf_matrix) / (conf_matrix.sum(1) + conf_matrix.sum(0) - np.diag(conf_matrix)).astype(float)
         return overall * 100., np.nanmean(perclass) * 100., np.nanmean(IU) * 100.
